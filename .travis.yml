@@ -46,12 +46,12 @@ script:
   - linuxdeployqt ./appdir/usr/share/applications/*.desktop -bundle-non-qt-libs
   - # workaround for https://github.com/KDAB/hotspot/issues/87
   - linuxdeployqt ./appdir/usr/lib/x86_64-linux-gnu/libexec/hotspot-perfparser -bundle-non-qt-libs -no-plugins
-  - ls -latr ./appdir/usr/lib/x86_64-linux-gnu/libexec/
-  - chmod +x ./appdir/usr/lib/x86_64-linux-gnu/libexec/elevate_perf_privileges.sh
-  - ls -latr ./appdir/usr/lib/x86_64-linux-gnu/libexec/
   - unset LD_LIBRARY_PATH
   - # also include the elfutils backend library ABI specific implementations
   - cp -va /usr/lib/x86_64-linux-gnu/elfutils/* ./appdir/usr/lib/x86_64-linux-gnu/libexec/lib/
+  - # also copy kdesu and kdesu_stub
+  - mkdir ./appdir/usr/lib/x86_64-linux-gnu/libexec/kf5
+  - cp -va /opt/qt59/lib/x86_64-linux-gnu/libexec/kf5/kdesu{,_stub} ./appdir/usr/lib/x86_64-linux-gnu/libexec/kf5
   - # Share libraries to reduce image size
   - mv ./appdir/usr/lib/x86_64-linux-gnu/libexec/lib/* ./appdir/usr/lib/
   - rmdir ./appdir/usr/lib/x86_64-linux-gnu/libexec/lib
